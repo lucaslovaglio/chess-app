@@ -2,7 +2,7 @@ package edu.austral.dissis.chess.piece
 
 import edu.austral.dissis.common.piece.PieceType
 
-enum class PieceEnum(val value: String): PieceType {
+enum class PieceEnum(private val value: String): PieceType {
     PAWN("pawn"),   //Peon
     ROOK("rook"),   //Torre
     KNIGHT("knight"), //Caballo

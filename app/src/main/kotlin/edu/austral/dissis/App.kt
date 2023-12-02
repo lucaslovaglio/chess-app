@@ -3,6 +3,7 @@
  */
 package edu.austral.dissis
 
+import edu.austral.dissis.checkers.factory.ClassicCheckers
 import edu.austral.dissis.common.adapter.Adapter
 import edu.austral.dissis.chess.gui.CachedImageResolver
 import edu.austral.dissis.chess.gui.DefaultImageResolver
@@ -21,7 +22,8 @@ fun main() {
 class ChessGameApplication : Application() {
 
     private val gameEngine = Adapter(
-        ClassicChess.createGame()
+//        ClassicChess.createGame()
+        ClassicCheckers.createGame()
     )
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 

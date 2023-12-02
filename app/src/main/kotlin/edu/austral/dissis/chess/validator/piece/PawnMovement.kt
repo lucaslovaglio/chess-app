@@ -11,8 +11,7 @@ import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.validator.ValidatorResultEnum
 
 class PawnMovement : MovementRule {
-    private val
-            oneStepMovement = FixedStepMovement(1)
+    private val oneStepMovement = FixedStepMovement(1)
     private val twoStepMovement = FixedStepMovement(2)
     private val diagonalMovement = DiagonalMovement()
     private val straightMovement = LinearMovement(false)

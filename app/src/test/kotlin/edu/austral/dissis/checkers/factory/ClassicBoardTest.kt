@@ -1,6 +1,5 @@
-package edu.austral.dissis.chess2.model
+package edu.austral.dissis.checkers.factory
 
-import edu.austral.dissis.chess.chess.factory.ClassicBoard
 
 import org.junit.Test
 
