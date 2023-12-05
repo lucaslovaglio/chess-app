@@ -5,5 +5,5 @@ import edu.austral.dissis.common.movement.MovementData
 
 
 interface Validator {
-    fun validate(movementData: MovementData, game: Game): ValidatorResultEnum
+    fun validate(movementData: MovementData, game: Game): ValidatorResult
 }

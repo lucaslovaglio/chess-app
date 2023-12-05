@@ -12,7 +12,7 @@ class Board(
         val piece = movementData.piece!!
         return Board(width, height, squares.map {
             when (it) {
-                movementData.squareFrom -> {
+                    movementData.squareFrom -> {
                     Square(null, it.x, it.y)
                 }
                 movementData.squareTo -> {
@@ -47,5 +47,44 @@ class Board(
 
     fun getNonEmptySquares(): List<Square> {
         return squares.filter { !it.isEmpty() }
+    }
+
+    fun removePieceById(id: Int): Board {
+        return Board(width, height, squares.map {
+            when (it.piece?.id) {
+                id -> {
+                    Square(null, it.x, it.y)
+                }
+                else -> {
+                    it
+                }
+            }
+        })
+    }
+
+    fun removePiece(x: Int, y:Int): Board {
+        return Board(width, height, squares.map {
+            when {
+                it.x == x && it.y == y -> {
+                    Square(null, it.x, it.y)
+                }
+                else -> {
+                    it
+                }
+            }
+        })
+    }
+
+    fun addPiece(piece: Piece, x: Int, y: Int): Board {
+        return Board(width, height, squares.map {
+            when {
+                it.x == x && it.y == y -> {
+                    Square(piece, it.x, it.y)
+                }
+                else -> {
+                    it
+                }
+            }
+        })
     }
 }

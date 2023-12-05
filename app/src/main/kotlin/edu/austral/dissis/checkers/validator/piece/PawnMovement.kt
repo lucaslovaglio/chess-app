@@ -23,7 +23,7 @@ class PawnMovement: MovementRule {
 
     override fun validate(movementData: MovementData, game: Game): Boolean {
         return when {
-            !forwardMovement.validate(movementData, game) -> false
+            !forwardMovement.validate(movementData, game).isPassed() -> false
             possibleCapture(movementData, game) ->
                 tryToCapture(movementData, game)
 
@@ -31,13 +31,13 @@ class PawnMovement: MovementRule {
 //            movementData.piece?.moveQty!! > 0 ->
 //                validateOneStepAndStraight(movementData, game)
             else ->
-                diagonalMovement.validate(movementData, game) && oneStepMovement.validate(movementData, game)
+                diagonalMovement.validate(movementData, game).isPassed() && oneStepMovement.validate(movementData, game).isPassed()
         }
     }
 
     private fun possibleCapture(movementData: MovementData, game: Game): Boolean {
         return abs(movementData.squareFrom.x - movementData.squareTo.x) == abs(movementData.squareFrom.y - movementData.squareTo.y)
-                && threeStepMovement.validate(movementData, game)
+                && threeStepMovement.validate(movementData, game).isPassed()
     }
 
     private fun tryToCapture(movementData: MovementData, game: Game): Boolean {

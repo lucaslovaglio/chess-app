@@ -5,6 +5,7 @@ import edu.austral.dissis.chess.validator.piece.*
 import edu.austral.dissis.chess.piece.PieceEnum
 import edu.austral.dissis.common.game.RulesMap
 
+
 object ClassicRules: RulesFactory {
     override fun createRulesMap(): RulesMap {
         return RulesMap(

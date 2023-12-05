@@ -22,8 +22,8 @@ fun main() {
 class ChessGameApplication : Application() {
 
     private val gameEngine = Adapter(
-//        ClassicChess.createGame()
-        ClassicCheckers.createGame()
+        ClassicChess.createGame()
+//        ClassicCheckers.createGame()
     )
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 

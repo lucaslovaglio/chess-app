@@ -5,16 +5,21 @@ import edu.austral.dissis.common.board.Square
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.validator.MovementRule
+import edu.austral.dissis.common.validator.Validator
+import edu.austral.dissis.common.validator.ValidatorResult
+import edu.austral.dissis.common.validator.ValidatorResultEnum
 
-class LinearMovement(private val isHorizontal: Boolean) : MovementRule {
+class LinearMovement(private val isHorizontal: Boolean) : Validator {
 
-    override fun validate(movementData: MovementData, game: Game): Boolean {
-        if (notValidSquareTo(movementData, isHorizontal)) return false
+    override fun validate(movementData: MovementData, game: Game): ValidatorResult {
+        if (notValidSquareTo(movementData, isHorizontal)) return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
         val board: Board = game.board
         val sameLine: (Square) -> Boolean = if (isHorizontal) { square -> isSquareOnSameLine(square, movementData.squareFrom, isHorizontal) } else { square -> isSquareOnSameLine(square, movementData.squareFrom, isHorizontal) }
         val isBetween: (Square) -> Boolean = { isSquareBetween(it, movementData.squareFrom, movementData.squareTo, isHorizontal) }
 
-        return board.squares.none { sameLine(it) && isBetween(it) && !it.isEmpty() }
+        return if (board.squares.none { sameLine(it) && isBetween(it) && !it.isEmpty() })
+                    ValidatorResult(ValidatorResultEnum.PASSED)
+                else ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
     }
 
     private fun notValidSquareTo(movementData: MovementData, isHorizontal: Boolean): Boolean {
