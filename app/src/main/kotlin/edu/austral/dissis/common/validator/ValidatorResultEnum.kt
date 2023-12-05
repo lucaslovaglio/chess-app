@@ -7,4 +7,5 @@ enum class ValidatorResultEnum(val message: String) {
     INVALID_MOVEMENT("You can't move like that"),
     INVALID_CAPTURE("You can't capture that piece"),
     INVALID_SQUARE("You can't move an empty square"),
+    CHECK("You can't move like that, you are in check"),
 }

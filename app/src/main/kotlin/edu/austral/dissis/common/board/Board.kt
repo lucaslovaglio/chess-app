@@ -1,6 +1,7 @@
 package edu.austral.dissis.common.board
 
 import edu.austral.dissis.common.movement.MovementData
+import edu.austral.dissis.common.piece.ColorEnum
 import edu.austral.dissis.common.piece.Piece
 
 class Board(
@@ -86,5 +87,9 @@ class Board(
                 }
             }
         })
+    }
+
+    fun getOccupiedSquaresByTeam(team: ColorEnum): List<Square> {
+        return squares.filter { !it.isEmpty() && it.piece!!.color == team }
     }
 }

@@ -3,6 +3,7 @@ package edu.austral.dissis.chess.factory
 
 import edu.austral.dissis.chess.game.ChessTurnManager
 import edu.austral.dissis.chess.validator.game.CheckMateValidator
+import edu.austral.dissis.chess.validator.game.CheckValidator
 import edu.austral.dissis.common.factory.GameFactory
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.validator.Validator
@@ -26,8 +27,8 @@ object ClassicChess: GameFactory {
             EmptySquareValidator(),
             TeamValidator(),
             SelfCaptureValidator(),
-            MovementValidator()
-
+            MovementValidator(),
+            CheckValidator()
         )
     }
 

@@ -6,6 +6,7 @@ import edu.austral.dissis.common.validator.ValidatorResultEnum
 import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.movement.MovementResult
+import edu.austral.dissis.common.piece.ColorEnum
 import edu.austral.dissis.common.validator.ValidatorResult
 
 class Game(
@@ -13,7 +14,7 @@ class Game(
     val validators: List<Validator>,
     val winConditionValidator: Validator,
     val rulesMap: RulesMap,
-    private val turnManager: TurnManager
+    val turnManager: TurnManager
 ) {
 
 
@@ -87,6 +88,10 @@ class Game(
         if (gameOverCheck.isPassed())
             return MovementResult(ResultEnum.GAME_OVER, validatorsResult.getResultMessage(), this)
         return MovementResult(ResultEnum.VALID_MOVEMENT, validatorsResult.getResultMessage(), newGame)
+    }
+
+    fun getEnemyTeam(color: ColorEnum): ColorEnum {
+        return if (color == ColorEnum.WHITE) ColorEnum.BLACK else ColorEnum.WHITE
     }
 
 }
