@@ -25,4 +25,8 @@ class CheckersTurnManager(
     override fun getCurrentPlayer(): Player {
         return currentPlayer
     }
+
+    override fun getNextTurnManager(): TurnManager {
+        TODO("Not yet implemented")
+    }
 }

@@ -7,4 +7,5 @@ interface TurnManager { // en cheeckers para saber si comio o no, me puedo fijar
                         // el problema es que como le aseguro que esa pieza es la que tiene que seguir comiendo
     fun nextTurn(movement: MovementData, game: Game, nextBoard: Board): Game
     fun getCurrentPlayer(): Player
+    fun getNextTurnManager(): TurnManager
 }

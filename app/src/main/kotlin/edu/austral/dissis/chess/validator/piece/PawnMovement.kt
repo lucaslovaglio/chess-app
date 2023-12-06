@@ -29,6 +29,8 @@ class PawnMovement : Validator {
         val specialActions = mutableListOf<SpecialAction>()
         specialActions.addAll(promotionResult.getSpecialActions())
 
+        if (!forwardMovement.validate(movementData, game).isPassed())
+            return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
         if (captureResult.isPassed()) {
             // Agregar las SpecialAction del validador de captura
             specialActions.addAll(captureResult.getSpecialActions())

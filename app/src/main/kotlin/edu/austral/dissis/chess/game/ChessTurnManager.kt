@@ -15,18 +15,21 @@ class ChessTurnManager(
     private val currentPlayer: Player,
 ): TurnManager {
     override fun nextTurn(movement: MovementData, game: Game, nextBoard: Board): Game {
-        val index = players.indexOf(currentPlayer)
-        val nextTurn: TurnManager = ChessTurnManager(players, players[(index + 1) % players.size])
         return Game(
             nextBoard,
             game.validators,
             game.winConditionValidator,
             game.rulesMap,
-            nextTurn
+            getNextTurnManager()
         )
     }
 
     override fun getCurrentPlayer(): Player {
         return currentPlayer
+    }
+
+    override fun getNextTurnManager(): TurnManager {
+        val index = players.indexOf(currentPlayer)
+        return ChessTurnManager(players, players[(index + 1) % players.size])
     }
 }

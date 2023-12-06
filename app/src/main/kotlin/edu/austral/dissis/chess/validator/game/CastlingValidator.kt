@@ -15,13 +15,14 @@ import kotlin.math.max
 import kotlin.math.min
 
 class CastlingValidator : Validator {
+    private val checkValidator = CheckValidator()
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         //TODO: Check if king is in check
         val board = game.board
         val from = movementData.squareFrom
         val to = movementData.squareTo
 
-        if (isValidKingMove(to, from)) {
+        if (isValidKingMove(movementData, game)) {
             val rookDirection = getRookDirection(to, from)
             val rookColumn = getRookColumn(to, from, board)
             val rookFrom = board.getSquareAt(rookColumn, from.y)
@@ -37,15 +38,19 @@ class CastlingValidator : Validator {
             }
         }
 
-        return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
+        return ValidatorResult(ValidatorResultEnum.INVALID_CASTLING)
     }
 
-    private fun isValidKingMove(to: Square, from: Square): Boolean {
+    private fun isValidKingMove(movementData: MovementData, game: Game): Boolean {
+        val from = movementData.squareFrom
+        val to = movementData.squareTo
         val validType = from.piece?.name == PieceEnum.KING
         val validDistance = abs(to.x - from.x) == 2 && to.y == from.y
         val emptySquareTo = to.isEmpty()
         val firstMove = from.piece?.moveQty == 0
-        return validType && validDistance && emptySquareTo && firstMove
+        val notInCheck = !checkValidator.isCheck(game, movementData.piece?.color!!)
+        //no puedo usar el validate porque ejecuta el movimiento
+        return validType && validDistance && emptySquareTo && firstMove && notInCheck
     }
 
     private fun getRookDirection(to: Square, from: Square): Int {
