@@ -8,7 +8,7 @@ import edu.austral.dissis.common.game.Player
 import edu.austral.dissis.common.piece.ColorEnum
 import edu.austral.dissis.common.piece.Piece
 
-class ClassicBoard: StartingBoard {
+object ClassicBoard: StartingBoard {
     private val height: Int = 8
     private val width: Int = 8
     private val players: List<Player> = listOf(Player(ColorEnum.WHITE), Player(ColorEnum.BLACK))

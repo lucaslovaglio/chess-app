@@ -3,12 +3,14 @@ package edu.austral.dissis.chess.piece
 import edu.austral.dissis.common.piece.PieceType
 
 enum class PieceEnum(private val value: String): PieceType {
-    PAWN("pawn"),   //Peon
-    ROOK("rook"),   //Torre
-    KNIGHT("knight"), //Caballo
-    BISHOP("bishop"), //Alfil
-    QUEEN("queen"),  //Reina
-    KING("king")  ;  //Rey
+    PAWN("pawn"),               //Peon
+    ROOK("rook"),               //Torre
+    KNIGHT("knight"),           //Caballo
+    BISHOP("bishop"),           //Alfil
+    QUEEN("queen"),             //Reina
+    KING("king"),               //Rey
+    CHANCELLOR("chancellor"),   //Caballo + Torre
+    ARCHBISHOP("archbishop");   //Caballo + Alfil
     // no estoy seguro si hacerlo asi porq si cambio la ui tambien deberia cambiar esto
 
     override fun value(): String {

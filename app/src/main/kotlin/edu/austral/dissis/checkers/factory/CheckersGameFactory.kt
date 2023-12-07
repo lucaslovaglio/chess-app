@@ -12,7 +12,7 @@ import edu.austral.dissis.common.validator.game.*
 
 object ClassicCheckers: GameFactory {
     override fun createGame(): Game {
-        val startingBoard = ClassicBoard()
+        val startingBoard = ClassicBoard
         return Game(
             startingBoard.generateBoard(),
             getValidator(),

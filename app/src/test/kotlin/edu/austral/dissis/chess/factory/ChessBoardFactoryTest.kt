@@ -4,15 +4,15 @@ package edu.austral.dissis.chess.factory
 import org.junit.jupiter.api.Test
 
 
-class ClassicBoardTest {
+class ChessBoardFactoryTest {
 
     @Test
     fun generateBoard() {
-        val startingBoard = ClassicBoard()
+        val startingBoard = CapablancaBoard
         val board = startingBoard.generateBoard()
 //        assertThat(board.squares.size, 64)
 //        assert(result.size == 32)
-        ClassicBoard().printBoard(board)
+        CapablancaBoard.printBoard(board)
         val i = 1
     }
 }

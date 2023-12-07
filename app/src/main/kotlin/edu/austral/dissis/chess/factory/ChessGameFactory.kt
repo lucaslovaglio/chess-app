@@ -12,13 +12,49 @@ import edu.austral.dissis.common.validator.game.*
 
 object ClassicChess: GameFactory {
     override fun createGame(): Game {
-        val startingBoard = ClassicBoard()
+        val startingBoard = ClassicBoard
         return Game(
             startingBoard.generateBoard(),
             getValidator(),
             getSpecialRule(),
             getWinCondition(),
             ClassicRules.createRulesMap(),
+            ChessTurnManager(startingBoard.getPlayers(), startingBoard.getPlayers()[0])
+        )
+    }
+
+    private fun getValidator(): Validator {
+        return AndValidator(listOf(
+            PositionValidator(),
+            EmptySquareValidator(),
+            TeamValidator(),
+            SelfCaptureValidator(),
+            MovementValidator(),
+            CheckValidator()
+        ))
+    }
+
+    private fun getSpecialRule(): Validator {
+        return AndValidator(listOf())
+    }
+
+    private fun getWinCondition(): Validator {
+        return AndValidator(listOf(
+            CheckMateValidator()
+        ))
+    }
+}
+
+
+object CapablancaChess: GameFactory {
+    override fun createGame(): Game {
+        val startingBoard = CapablancaBoard
+        return Game(
+            startingBoard.generateBoard(),
+            getValidator(),
+            getSpecialRule(),
+            getWinCondition(),
+            CapablancaRules.createRulesMap(),
             ChessTurnManager(startingBoard.getPlayers(), startingBoard.getPlayers()[0])
         )
     }

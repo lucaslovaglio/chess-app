@@ -20,3 +20,20 @@ object ClassicRules: RulesFactory {
         )
     }
 }
+
+object CapablancaRules: RulesFactory {
+    override fun createRulesMap(): RulesMap {
+        return RulesMap(
+            mapOf(
+                PieceEnum.PAWN to PawnMovement(),
+                PieceEnum.ROOK to RookMovement(),
+                PieceEnum.KNIGHT to KnightMovement(),
+                PieceEnum.BISHOP to BishopMovement(),
+                PieceEnum.QUEEN to QueenMovement(),
+                PieceEnum.KING to KingMovement(),
+                PieceEnum.CHANCELLOR to ChancellorMovement(),
+                PieceEnum.ARCHBISHOP to Archbishop()
+            )
+        )
+    }
+}
