@@ -16,7 +16,8 @@ class CheckersTurnManager(
     override fun nextTurn(movement: MovementData, game: Game, nextBoard: Board): Game {
         return Game(
             nextBoard,
-            game.validators,
+            game.validator,
+            game.specialRule,
             game.winConditionValidator,
             game.rulesMap,
             getNextTurnManager(movement, game, nextBoard)

@@ -6,6 +6,7 @@ import edu.austral.dissis.checkers.validator.game.StaleMateValidator
 import edu.austral.dissis.common.factory.GameFactory
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.validator.Validator
+import edu.austral.dissis.common.validator.composite.AndValidator
 import edu.austral.dissis.common.validator.game.*
 
 object ClassicCheckers: GameFactory {
@@ -13,26 +14,35 @@ object ClassicCheckers: GameFactory {
         val startingBoard = ClassicBoard()
         return Game(
             startingBoard.generateBoard(),
-            getValidatorList(),
+            getValidator(),
+            getSpecialRule(),
             getWinCondition(),
             ClassicRules.createRulesMap(),
             CheckersTurnManager(startingBoard.getPlayers(), startingBoard.getPlayers()[0])
         )
     }
 
-    private fun getValidatorList(): List<Validator> {
-        return listOf(
+    private fun getValidator(): Validator {
+        return AndValidator(listOf(
             PositionValidator(),
             EmptySquareValidator(),
             TeamValidator(),
             SelfCaptureValidator(),
-            MovementValidator(),
-            AnyCaptureValidator()
-        )
+            MovementValidator()
+        ))
+
+    }
+
+    private fun getSpecialRule(): Validator {
+        return AndValidator(listOf(
+            AnyCaptureValidator(),
+        ))
     }
 
     private fun getWinCondition(): Validator {
-//        return CaptureAllValidator()
-        return StaleMateValidator()
+        return AndValidator(listOf(
+            CaptureAllValidator(),
+            StaleMateValidator()
+        ))
     }
 }

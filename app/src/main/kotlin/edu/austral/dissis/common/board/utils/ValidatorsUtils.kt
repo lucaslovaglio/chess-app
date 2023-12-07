@@ -9,9 +9,14 @@ fun getPossibleMoves(pieceSquare: Square, game: Game): List<MovementData> {
     val posibleMoves = mutableListOf<MovementData>()
     for (square in squares) {
         val movementDataAux = MovementData(pieceSquare.piece, pieceSquare, square)
-        if (!game.validate(movementDataAux).isPassed())
+        if (!isValid(movementDataAux, game))
             continue
         posibleMoves.add(movementDataAux)
     }
     return posibleMoves
+}
+
+private fun isValid(movementData: MovementData, game: Game): Boolean {
+    val validator = game.validator
+    return validator.validate(movementData, game).isPassed()
 }

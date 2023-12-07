@@ -8,66 +8,33 @@ import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.movement.MovementResult
 import edu.austral.dissis.common.piece.ColorEnum
 import edu.austral.dissis.common.validator.ValidatorResult
+import edu.austral.dissis.common.validator.composite.AndValidator
 
 class Game(
     val board: Board,
-    val validators: List<Validator>,
+    val validator: Validator,
+    val specialRule: Validator,
     val winConditionValidator: Validator,
     val rulesMap: RulesMap,
     val turnManager: TurnManager
 ) {
 
-
-//    constructor(
-//        players: List<Player>,
-//        currentPlayer: Player,
-//        startingBoard: StartingBoard,
-//        validators: List<Validator>,
-//        winConditionValidator: WinConditionValidator
-//    ) : this(players, currentPlayer, startingBoard, startingBoard.generateBoard(), validators, winConditionValidator) {
-//        if (players.size < 2) {
-//            throw Exception("There must be at least two players")
-//        }
-//    }
-
-//    constructor()
-
-//    fun validate(movementData: MovementData): ValidatorResultEnum {
-//        turnValidator.validate(movementData) // Validación específica de turno
-//        movementValidator.validate(movementData) // Validación específica de movimiento
-//        for (validator in validators) {
-//            val validatorResult = validator.validate(movementData)
-//            if (validatorResult != ValidatorResultEnum.PASSED) {
-//                return validatorResult // Si un validador falla, el resultado es fallido
+//    fun validate(movementData: MovementData): ValidatorResult {
+//        var result = ValidatorResult(ValidatorResultEnum.PASSED)
+//
+//        for (validator in validator) {
+//            val validatorResult = validator.validate(movementData, this)
+//            result = validatorResult.addSpecialAction(result.getSpecialActions())
+//            if (!validatorResult.isPassed()) {
+//                return result // Si un validador falla, el resultado es fallido
 //            }
 //        }
-//        return ValidatorResultEnum.PASSED
+//
+//        return result
 //    }
 
-//    fun move(movementData: MovementData): Game {
-//        val newBoard = board.move(movementData)
-//        return Game(
-//            players,
-//            nextPlayer(),
-//            startingBoard,
-//            newBoard,
-//            validators,
-//            winConditionValidator
-//        )
-//    }
-
-    fun validate(movementData: MovementData): ValidatorResult {
-        var result = ValidatorResult(ValidatorResultEnum.PASSED)
-
-        for (validator in validators) {
-            val validatorResult = validator.validate(movementData, this)
-            result = validatorResult.addSpecialAction(result.getSpecialActions())
-            if (!validatorResult.isPassed()) {
-                return result // Si un validador falla, el resultado es fallido
-            }
-        }
-
-        return result
+    private fun validate(movementData: MovementData): ValidatorResult {
+        return AndValidator(listOf(validator, specialRule)).validate(movementData, this)
     }
 
     fun getCurrentPlayer(): Player {
@@ -75,22 +42,23 @@ class Game(
     }
 
     fun move(movementData: MovementData): MovementResult {
-        val validatorsResult: ValidatorResult = validate(movementData)
+//        val validatorsResult: ValidatorResult = validate(movementData)
+        val validatorResult: ValidatorResult = validate(movementData)
 
-        if (!validatorsResult.isPassed())
-            return MovementResult(ResultEnum.INVALID_MOVEMENT, validatorsResult.getResultMessage(), this)
+        if (!validatorResult.isPassed())
+            return MovementResult(ResultEnum.INVALID_MOVEMENT, validatorResult.getResultMessage(), this)
 
         val board = board.move(movementData)
-        val newBoard = validatorsResult.executeSpecialActions(board, validatorsResult.getSpecialActions())
+        val newBoard = validatorResult.executeSpecialActions(board, validatorResult.getSpecialActions())
         val newGame = turnManager.nextTurn(movementData, this, newBoard)
 
         // si cambio el turno valido las game over sino no
         if (hasChangedTurn(this, newGame)) {
             val gameOverCheck: ValidatorResult = winConditionValidator.validate(movementData, newGame)
             if (gameOverCheck.isPassed())
-                return MovementResult(ResultEnum.GAME_OVER, validatorsResult.getResultMessage(), this)
+                return MovementResult(ResultEnum.GAME_OVER, validatorResult.getResultMessage(), this)
         }
-        return MovementResult(ResultEnum.VALID_MOVEMENT, validatorsResult.getResultMessage(), newGame)
+        return MovementResult(ResultEnum.VALID_MOVEMENT, validatorResult.getResultMessage(), newGame)
     }
 
     fun getEnemyTeam(color: ColorEnum): ColorEnum {

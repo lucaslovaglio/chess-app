@@ -5,7 +5,8 @@ import edu.austral.dissis.common.movement.specialAction.SpecialAction
 
 class ValidatorResult(
     private val result: ValidatorResultEnum,
-    private val specialActions: List<SpecialAction> = emptyList()
+    private val specialActions: List<SpecialAction> = emptyList(),
+    private val message: String = result.message
 ) {
     fun isPassed(): Boolean {
         return result == ValidatorResultEnum.PASSED
@@ -31,6 +32,6 @@ class ValidatorResult(
     }
 
     fun getResultMessage(): String {
-        return result.message
+        return message
     }
 }

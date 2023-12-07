@@ -14,7 +14,7 @@ class AndValidator(private val validators: List<Validator>) : Validator {
         for (validator in validators) {
             val result = validator.validate(movementData, game)
             if (!result.isPassed()) {
-                return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT, specialActions)
+                return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT, specialActions, result.getResultMessage())
             }
             specialActions.addAll(result.getSpecialActions())
         }

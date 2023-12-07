@@ -11,6 +11,8 @@ import edu.austral.dissis.common.validator.MovementRule
 import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum
+import edu.austral.dissis.common.validator.composite.AndValidator
+import edu.austral.dissis.common.validator.composite.OrValidator
 
 class KingMovement : Validator {
     private val diagonalMovement = DiagonalMovement()
@@ -19,17 +21,47 @@ class KingMovement : Validator {
     private val oneStepMovement = FixedStepMovement(1)
     private val castlingValidator = CastlingValidator()
 
+    private val directionValidator = OrValidator(
+        listOf(
+            diagonalMovement,
+            straightMovement,
+            horizontalMovement
+        )
+    )
+
+    private val normalMove = AndValidator(
+        listOf(
+            directionValidator,
+            oneStepMovement
+        )
+    )
+
+    private val orValidator = OrValidator(
+        listOf(
+            castlingValidator,
+            normalMove
+        )
+    )
+
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
-        val castlingResult = castlingValidator.validate(movementData, game)
-        val specialActions = mutableListOf<SpecialAction>()
-        specialActions.addAll(castlingResult.getSpecialActions())
+        val result = orValidator.validate(movementData, game)
+        return if (result.isPassed()) {
+            ValidatorResult(ValidatorResultEnum.PASSED, result.getSpecialActions())
+        } else {
+            ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
+        }
 
-        val isValid = (diagonalMovement.validate(movementData, game).isPassed() ||
-                straightMovement.validate(movementData, game).isPassed() ||
-                horizontalMovement.validate(movementData, game).isPassed()) &&
-                oneStepMovement.validate(movementData, game).isPassed()
 
-        return if (isValid || castlingResult.isPassed()) ValidatorResult(ValidatorResultEnum.PASSED, specialActions)
-        else ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
+//        val castlingResult = castlingValidator.validate(movementData, game)
+//        val specialActions = mutableListOf<SpecialAction>()
+//        specialActions.addAll(castlingResult.getSpecialActions())
+//
+//        val isValid = (diagonalMovement.validate(movementData, game).isPassed() ||
+//                straightMovement.validate(movementData, game).isPassed() ||
+//                horizontalMovement.validate(movementData, game).isPassed()) &&
+//                oneStepMovement.validate(movementData, game).isPassed()
+//
+//        return if (isValid || castlingResult.isPassed()) ValidatorResult(ValidatorResultEnum.PASSED, specialActions)
+//        else ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
     }
 }
