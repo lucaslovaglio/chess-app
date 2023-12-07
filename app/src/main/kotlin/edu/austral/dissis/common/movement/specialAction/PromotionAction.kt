@@ -1,9 +1,7 @@
 package edu.austral.dissis.common.movement.specialAction
 
-import edu.austral.dissis.chess.piece.PieceEnum
 import edu.austral.dissis.common.board.Board
 import edu.austral.dissis.common.movement.MovementData
-import edu.austral.dissis.common.piece.Piece
 import edu.austral.dissis.common.piece.PieceType
 
 class PromotionAction(

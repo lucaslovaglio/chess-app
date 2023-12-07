@@ -32,10 +32,9 @@ fun adaptPosition(row: Int, column: Int): Position {
 }
 
 fun adaptColor(color: ColorEnum): PlayerColor {
-    when(color) {
-        ColorEnum.WHITE -> return PlayerColor.WHITE
-        ColorEnum.BLACK -> return PlayerColor.BLACK
-        else -> throw IllegalArgumentException("Color is not valid")
+    return when(color) {
+        ColorEnum.WHITE -> PlayerColor.WHITE
+        ColorEnum.BLACK -> PlayerColor.BLACK
     }
 }
 

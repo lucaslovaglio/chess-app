@@ -1,6 +1,5 @@
 package edu.austral.dissis.checkers.validator.game
 
-import edu.austral.dissis.checkers.validator.movement.PieceInMiddleValidator
 import edu.austral.dissis.common.board.utils.getPossibleMoves
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData

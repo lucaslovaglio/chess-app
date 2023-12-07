@@ -10,7 +10,6 @@ import edu.austral.dissis.chess.validator.game.CaptureValidator
 import edu.austral.dissis.chess.validator.game.FirstMovementValidator
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.game.Game
-import edu.austral.dissis.common.movement.specialAction.SpecialAction
 import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum
@@ -74,6 +73,7 @@ class PawnMovement : Validator {
             orValidator
         )
     )
+
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         val result = andValidator.validate(movementData, game)
         return if (result.isPassed()) {
@@ -81,48 +81,5 @@ class PawnMovement : Validator {
         } else {
             ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
         }
-//        val promotionResult = promotionValidator.validate(movementData, game)
-//        val captureResult = captureValidator.validate(movementData, game)
-//
-//        val specialActions = mutableListOf<SpecialAction>()
-//        specialActions.addAll(promotionResult.getSpecialActions())
-//
-//        if (!forwardMovement.validate(movementData, game).isPassed())
-//            return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
-//        if (captureResult.isPassed()) {
-//            // Agregar las SpecialAction del validador de captura
-//            specialActions.addAll(captureResult.getSpecialActions())
-//            // Validar diagonal y paso simple
-//            if (validateDiagonalAndOneStep(movementData, game)) {
-//                return ValidatorResult(ValidatorResultEnum.PASSED, specialActions)
-//            }
-//        } else if (movementData.piece?.moveQty!! > 0) {
-//            // Validar paso simple y recto
-//            if (validateOneStepAndStraight(movementData, game)) {
-//                return ValidatorResult(ValidatorResultEnum.PASSED, specialActions)
-//            }
-//        } else {
-//            // Validar paso uno o dos y recto
-//            if (validateOneOrTwoStepAndStraight(movementData, game)) {
-//                return ValidatorResult(ValidatorResultEnum.PASSED, specialActions)
-//            }
-//        }
-//
-//        return ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT, specialActions)
     }
-
-    private fun validateDiagonalAndOneStep(movementData: MovementData, game: Game): Boolean {
-        return diagonalMovement.validate(movementData, game).isPassed() && oneStepMovement.validate(movementData, game).isPassed()
-    }
-
-    private fun validateOneStepAndStraight(movementData: MovementData, game: Game): Boolean {
-        return oneStepMovement.validate(movementData, game).isPassed() &&
-                straightMovement.validate(movementData, game).isPassed()
-    }
-
-    private fun validateOneOrTwoStepAndStraight(movementData: MovementData, game: Game): Boolean {
-        return (oneStepMovement.validate(movementData, game).isPassed() || twoStepMovement.validate(movementData, game).isPassed()) &&
-                straightMovement.validate(movementData, game).isPassed()
-    }
-
 }

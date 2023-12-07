@@ -4,7 +4,6 @@ import edu.austral.dissis.common.board.Board
 import edu.austral.dissis.common.board.Square
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData
-import edu.austral.dissis.common.validator.MovementRule
 import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum

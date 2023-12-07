@@ -1,6 +1,5 @@
 package edu.austral.dissis.common.validator.game
 
-import edu.austral.dissis.chess.piece.PieceEnum
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.movement.specialAction.PromotionAction

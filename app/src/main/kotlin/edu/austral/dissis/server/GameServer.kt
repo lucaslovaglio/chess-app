@@ -4,10 +4,10 @@ package edu.austral.dissis.server
 import com.fasterxml.jackson.core.type.TypeReference
 import edu.austral.dissis.chess.gui.*
 import edu.austral.dissis.common.adapter.adaptColor
+import edu.austral.dissis.common.adapter.adaptMove
 import edu.austral.dissis.common.adapter.getCurrentPlayer
 import edu.austral.dissis.common.adapter.getPieces
 import edu.austral.dissis.common.game.Game
-import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.movement.MovementResult
 import edu.austral.dissis.common.movement.ResultEnum
 import edu.austral.ingsis.clientserver.Message
@@ -28,7 +28,7 @@ class GameServer(
 
     fun handleMove(move: Move){
 
-        val movementData = adaptMove(move)
+        val movementData = adaptMove(game, move)
         val result: MovementResult = game.move(movementData)
         return when(result.result) {
             ResultEnum.VALID_MOVEMENT ->
@@ -42,18 +42,6 @@ class GameServer(
 
     fun stop(){
         server.stop()
-    }
-
-    //adapter todo
-    private fun adaptMove(move: Move): MovementData {
-        val board = game.board
-        val from = move.from
-        val to = move.to
-        return MovementData(
-            board.getPieceAt(from.column, from.row),
-            board.getSquareAt(from.column, from.row),
-            board.getSquareAt(to.column, to.row)
-        )
     }
 
     fun handleInitialConnection(){

@@ -10,7 +10,6 @@ import edu.austral.dissis.common.validator.game.MovementValidator
 
 class CheckMateValidator: Validator {
     private val checkValidator = CheckValidator()
-    private val movementValidator = MovementValidator()
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         val enemyTeam = game.getEnemyTeam(movementData.piece?.color!!)
         if (!checkValidator.validateForTeam(game, movementData, enemyTeam)) {

@@ -32,7 +32,7 @@ class CheckersTurnManager(
     }
 
     private fun getNextTurnManager(movement: MovementData, game: Game, nextBoard: Board): TurnManager {
-        val gameAfterMove = simulateFutureGame(movement, game, nextBoard)
+        val gameAfterMove = simulateFutureGame(game, nextBoard)
         if (hasEaten(movement, game) && canStillEating(movement, gameAfterMove))
             return CheckersTurnManager(players, currentPlayer)
         return CheckersTurnManager(players, getNextPlayer())
@@ -57,7 +57,7 @@ class CheckersTurnManager(
         return board.getSquareAt(to.x, to.y)
     }
 
-    private fun simulateFutureGame(movement: MovementData, game: Game, nextBoard: Board): Game {
+    private fun simulateFutureGame(game: Game, nextBoard: Board): Game {
         return Game(
             nextBoard,
             game.validator,

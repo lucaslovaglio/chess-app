@@ -9,30 +9,30 @@ import edu.austral.dissis.common.piece.ColorEnum
 import edu.austral.dissis.common.piece.Piece
 
 object ClassicBoard: StartingBoard {
-    private val height: Int = 8
-    private val width: Int = 8
+    private const val HEIGHT: Int = 8
+    private const val WIDTH: Int = 8
     private val players: List<Player> = listOf(Player(ColorEnum.WHITE), Player(ColorEnum.BLACK))
     override fun generateBoard(): Board {
         val squares = mutableListOf<Square>()
 
         // Agregar piezas blancas
-        for (i in 1..width) {
+        for (i in 1..WIDTH) {
             squares.add(Square(Piece(i, ColorEnum.WHITE, getPieceTypeForIndex(i), 0), i, 1))
         }
 
         // Agregar peones blancos
-        for (i in 1..width) {
+        for (i in 1..WIDTH) {
             squares.add(Square(Piece(i + 16, ColorEnum.WHITE, PieceEnum.PAWN, 0), i, 2))
         }
 
         // Agregar peones negros
-        for (i in 1..width) {
-            squares.add(Square(Piece(i + 24, ColorEnum.BLACK, PieceEnum.PAWN, 0), i, height-1))
+        for (i in 1..WIDTH) {
+            squares.add(Square(Piece(i + 24, ColorEnum.BLACK, PieceEnum.PAWN, 0), i, HEIGHT-1))
         }
 
         // Agregar piezas negras
-        for (i in 1..width) {
-            squares.add(Square(Piece(i + 32, ColorEnum.BLACK, getPieceTypeForIndex(i), 0), i, height))
+        for (i in 1..WIDTH) {
+            squares.add(Square(Piece(i + 32, ColorEnum.BLACK, getPieceTypeForIndex(i), 0), i, HEIGHT))
         }
 
         // Agregar casilleros vacíos
@@ -40,7 +40,7 @@ object ClassicBoard: StartingBoard {
 
 
 
-        return Board(width, height, squares)
+        return Board(WIDTH, HEIGHT, squares)
     }
 
     override fun getPlayers(): List<Player> {
@@ -48,8 +48,8 @@ object ClassicBoard: StartingBoard {
     }
 
     private fun addEmptyPieces(squares: MutableList<Square>) {
-        for (col in 3 until height - 1) {
-            for (row in 1..width) {
+        for (col in 3 until HEIGHT - 1) {
+            for (row in 1..WIDTH) {
                 squares.add(Square(null, row, col))
             }
         }
@@ -68,8 +68,8 @@ object ClassicBoard: StartingBoard {
     }
 
     fun printBoard(board: Board) {
-        for (row in 1..height) {
-            for (col in 1..width) {
+        for (row in 1..HEIGHT) {
+            for (col in 1..WIDTH) {
                 try {
                     val pieceSymbol = board.getPieceAt(col, row)?.name
                     print("$pieceSymbol\t")

@@ -7,7 +7,7 @@ import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum
 
 
-class PositionValidator(): Validator {
+class PositionValidator: Validator {
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         if (game.board.squares.contains(movementData.squareTo))
             return ValidatorResult(ValidatorResultEnum.PASSED)

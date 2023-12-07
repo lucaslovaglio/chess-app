@@ -2,7 +2,6 @@ package edu.austral.dissis.common.game
 
 import edu.austral.dissis.common.board.Board
 import edu.austral.dissis.common.movement.ResultEnum
-import edu.austral.dissis.common.validator.ValidatorResultEnum
 import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.movement.MovementResult

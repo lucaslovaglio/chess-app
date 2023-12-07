@@ -2,11 +2,8 @@ package edu.austral.dissis.common.adapter
 
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.chess.gui.*
-import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.movement.MovementResult
 import edu.austral.dissis.common.movement.ResultEnum
-import edu.austral.dissis.common.piece.ColorEnum
-import edu.austral.dissis.common.piece.PieceType
 
 
 class Adapter(private var game: Game) : GameEngine {
