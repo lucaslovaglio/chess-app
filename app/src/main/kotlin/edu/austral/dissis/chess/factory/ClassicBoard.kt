@@ -9,8 +9,8 @@ import edu.austral.dissis.common.piece.ColorEnum
 import edu.austral.dissis.common.piece.Piece
 
 class ClassicBoard: StartingBoard {
-    val height: Int = 8
-    val width: Int = 8
+    private val height: Int = 8
+    private val width: Int = 8
     private val players: List<Player> = listOf(Player(ColorEnum.WHITE), Player(ColorEnum.BLACK))
     override fun generateBoard(): Board {
         val squares = mutableListOf<Square>()

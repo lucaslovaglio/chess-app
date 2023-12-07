@@ -1,7 +1,7 @@
 package edu.austral.dissis.checkers.factory
 
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 
 class ClassicBoardTest {

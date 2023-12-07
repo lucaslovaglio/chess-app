@@ -20,7 +20,7 @@ class ChessTurnManager(
             game.validators,
             game.winConditionValidator,
             game.rulesMap,
-            getNextTurnManager()
+            getNextTurnManager(movement, game, nextBoard)
         )
     }
 
@@ -28,7 +28,7 @@ class ChessTurnManager(
         return currentPlayer
     }
 
-    override fun getNextTurnManager(): TurnManager {
+    private fun getNextTurnManager(movement: MovementData, game: Game, nextBoard: Board): TurnManager {
         val index = players.indexOf(currentPlayer)
         return ChessTurnManager(players, players[(index + 1) % players.size])
     }

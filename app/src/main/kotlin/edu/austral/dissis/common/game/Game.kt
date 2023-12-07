@@ -84,14 +84,21 @@ class Game(
         val newBoard = validatorsResult.executeSpecialActions(board, validatorsResult.getSpecialActions())
         val newGame = turnManager.nextTurn(movementData, this, newBoard)
 
-        val gameOverCheck: ValidatorResult = winConditionValidator.validate(movementData, newGame)
-        if (gameOverCheck.isPassed())
-            return MovementResult(ResultEnum.GAME_OVER, validatorsResult.getResultMessage(), this)
+        // si cambio el turno valido las game over sino no
+        if (hasChangedTurn(this, newGame)) {
+            val gameOverCheck: ValidatorResult = winConditionValidator.validate(movementData, newGame)
+            if (gameOverCheck.isPassed())
+                return MovementResult(ResultEnum.GAME_OVER, validatorsResult.getResultMessage(), this)
+        }
         return MovementResult(ResultEnum.VALID_MOVEMENT, validatorsResult.getResultMessage(), newGame)
     }
 
     fun getEnemyTeam(color: ColorEnum): ColorEnum {
         return if (color == ColorEnum.WHITE) ColorEnum.BLACK else ColorEnum.WHITE
+    }
+
+    private fun hasChangedTurn(game: Game, newGame: Game): Boolean {
+        return game.getCurrentPlayer() != newGame.getCurrentPlayer()
     }
 
 }

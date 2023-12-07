@@ -1,5 +1,6 @@
 package edu.austral.dissis.chess.validator.game
 
+import edu.austral.dissis.common.board.utils.getPossibleMoves
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.validator.Validator
@@ -17,14 +18,15 @@ class CheckMateValidator: Validator {
         }
         val board = game.board
         val ownPiecesSquares = board.getOccupiedSquaresByTeam(enemyTeam)
-        val squares = board.squares
+//        val squares = board.squares
         var isPassed = true
         for (ownPieceSquare in ownPiecesSquares) {
-            for (square in squares) {
-                val movementDataAux = MovementData(ownPieceSquare.piece, ownPieceSquare, square)
-                if (!game.validate(movementDataAux).isPassed())
-                    continue
-                val result = checkValidator.validate(movementDataAux, game)
+            val possibleMoves = getPossibleMoves(ownPieceSquare, game)
+            for (move in possibleMoves) {
+//                val movementDataAux = MovementData(ownPieceSquare.piece, ownPieceSquare, square)
+//                if (!game.validate(movementDataAux).isPassed())
+//                    continue
+                val result = checkValidator.validate(move, game)
                 isPassed = isPassed && !result.isPassed()
             }
         }

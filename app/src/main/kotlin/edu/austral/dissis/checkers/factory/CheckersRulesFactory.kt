@@ -9,8 +9,8 @@ object ClassicRules: RulesFactory {
     override fun createRulesMap(): RulesMap {
         return RulesMap(
             mapOf(
-//                PieceEnum.PAWN to PawnMovement(),
-//                PieceEnum.KING to KingMovement()
+                PieceEnum.PAWN to PawnMovement(),
+                PieceEnum.KING to KingMovement()
             )
         )
     }

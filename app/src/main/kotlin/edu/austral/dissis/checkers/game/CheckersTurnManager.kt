@@ -1,5 +1,6 @@
 package edu.austral.dissis.checkers.game
 
+import edu.austral.dissis.chess.game.ChessTurnManager
 import edu.austral.dissis.common.board.Board
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.game.Player
@@ -10,15 +11,16 @@ class CheckersTurnManager(
     private val players: List<Player>,
     private val currentPlayer: Player,
 ): TurnManager {
+    // en cheeckers para saber si comio o no, me puedo fijar si la cantidad de piezas es menor
+    // el problema es que como le aseguro que esa pieza es la que tiene que seguir comiendo
     override fun nextTurn(movement: MovementData, game: Game, nextBoard: Board): Game {
-        val index = players.indexOf(currentPlayer)
-        val nextTurn: TurnManager = CheckersTurnManager(players, players[(index + 1) % players.size])
         return Game(
             nextBoard,
             game.validators,
             game.winConditionValidator,
             game.rulesMap,
-            nextTurn
+            getNextTurnManager(movement, game, nextBoard)
+//            game.turnManager
         )
     }
 
@@ -26,7 +28,10 @@ class CheckersTurnManager(
         return currentPlayer
     }
 
-    override fun getNextTurnManager(): TurnManager {
-        TODO("Not yet implemented")
+    private fun getNextTurnManager(movement: MovementData, game: Game, nextBoard: Board): TurnManager {
+        val index = players.indexOf(currentPlayer)
+        if (game.board.squares.size == nextBoard.squares.size)
+            return ChessTurnManager(players, players[(index + 1) % players.size])
+        return CheckersTurnManager(players, currentPlayer)
     }
 }

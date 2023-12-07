@@ -13,20 +13,6 @@ import edu.austral.dissis.common.validator.game.MovementValidator
 
 class CheckValidator: Validator {
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
-
-//        val board = nextGame.board
-//        val enemyTeam = nextGame.getEnemyTeam(movementData.piece!!.color)
-//        val enemyPiecesSquares = board.getOccupiedSquaresByTeam(enemyTeam)
-//        val ownPiecesSquares = board.getOccupiedSquaresByTeam(movementData.piece.color)
-//        val king = ownPiecesSquares.find { it.piece?.name == PieceEnum.KING }!!
-//        for (enemySquare in enemyPiecesSquares) {
-//            val movementDataAux = MovementData(enemySquare.piece, enemySquare, king)
-//            val result = movementValidator.validate(movementDataAux, nextGame)
-//            if (result.isPassed()) {
-//                return ValidatorResult(ValidatorResultEnum.CHECK)
-//            }
-//        }
-//        return ValidatorResult(ValidatorResultEnum.PASSED)
         return if (validateForTeam(game, movementData, movementData.piece?.color!!)) {
             ValidatorResult(ValidatorResultEnum.CHECK)
         } else ValidatorResult(ValidatorResultEnum.PASSED)
@@ -43,18 +29,13 @@ class CheckValidator: Validator {
 
     fun isCheck(
         game: Game,
-//        movementData: MovementData,
         colorInCheck: ColorEnum
     ): Boolean {
-//        val nextGame = getNextGame(game, movementData)
         val board = game.board
         val enemyTeam = game.getEnemyTeam(colorInCheck)
         val enemyPiecesSquares = board.getOccupiedSquaresByTeam(enemyTeam)
         val ownPiecesSquares = board.getOccupiedSquaresByTeam(colorInCheck)
-        val king = ownPiecesSquares.find { it.piece?.name == PieceEnum.KING }
-        if (king == null) {
-            return false
-        }
+        val king = ownPiecesSquares.find { it.piece?.name == PieceEnum.KING } ?: return false
 
         for (enemySquare in enemyPiecesSquares) {
             val movementDataAux = MovementData(enemySquare.piece, enemySquare, king)
@@ -71,12 +52,14 @@ class CheckValidator: Validator {
 
     private fun getNextGame(game: Game, movementData: MovementData): Game {
         val board = game.board.move(movementData)
-        return Game(
-            board,
-            game.validators,
-            game.winConditionValidator,
-            game.rulesMap,
-            game.turnManager.getNextTurnManager()
-        )
+        val turnManager = game.turnManager
+        return turnManager.nextTurn(movementData, game, board)
+//        return Game(
+//            board,
+//            game.validators,
+//            game.winConditionValidator,
+//            game.rulesMap,
+//            game.turnManager.getNextTurnManager(movementData, game, board)
+//        )
     }
 }

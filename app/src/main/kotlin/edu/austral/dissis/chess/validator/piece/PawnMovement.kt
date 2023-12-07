@@ -1,12 +1,12 @@
 package edu.austral.dissis.chess.validator.piece
 
-import edu.austral.dissis.chess.validator.game.PromotionValidator
+import edu.austral.dissis.chess.piece.PieceEnum
+import edu.austral.dissis.common.validator.game.PromotionValidator
 import edu.austral.dissis.chess.validator.movement.LinearMovement
-import edu.austral.dissis.common.validator.MovementRule
 import edu.austral.dissis.common.validator.movement.DiagonalMovement
 import edu.austral.dissis.common.validator.movement.FixedStepMovement
 import edu.austral.dissis.common.validator.movement.OnlyDirectionMovement
-import edu.austral.dissis.common.validator.game.CaptureValidator
+import edu.austral.dissis.chess.validator.game.CaptureValidator
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.specialAction.SpecialAction
@@ -21,7 +21,7 @@ class PawnMovement : Validator {
     private val straightMovement = LinearMovement(false)
     private val forwardMovement = OnlyDirectionMovement(true)
     private val captureValidator = CaptureValidator()
-    private val promotionValidator = PromotionValidator()
+    private val promotionValidator = PromotionValidator(PieceEnum.PAWN, PieceEnum.QUEEN)
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         val promotionResult = promotionValidator.validate(movementData, game)
         val captureResult = captureValidator.validate(movementData, game)

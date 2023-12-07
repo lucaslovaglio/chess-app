@@ -1,7 +1,8 @@
 package edu.austral.dissis.checkers.factory
 
 import edu.austral.dissis.checkers.game.CheckersTurnManager
-import edu.austral.dissis.checkers.validator.game.CaptureAllValidator
+import edu.austral.dissis.checkers.validator.game.AnyCaptureValidator
+import edu.austral.dissis.checkers.validator.game.StaleMateValidator
 import edu.austral.dissis.common.factory.GameFactory
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.validator.Validator
@@ -25,12 +26,13 @@ object ClassicCheckers: GameFactory {
             EmptySquareValidator(),
             TeamValidator(),
             SelfCaptureValidator(),
-            MovementValidator()
-
+            MovementValidator(),
+            AnyCaptureValidator()
         )
     }
 
     private fun getWinCondition(): Validator {
-        return CaptureAllValidator()
+//        return CaptureAllValidator()
+        return StaleMateValidator()
     }
 }

@@ -10,4 +10,7 @@ enum class ValidatorResultEnum(val message: String) {
     CHECK("You can't move like that, you are in check"),
     NO_CHECKMATE("You can continue playing"),
     INVALID_CASTLING("Castling is not possible"),
+    NO_CAPTURE_ALL("There are still pieces to capture"),
+    NO_STALEMATE("There are still possible moves"),
+    NO_CAPTURES("There are no captures available"),
 }

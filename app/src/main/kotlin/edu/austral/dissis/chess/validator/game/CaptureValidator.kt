@@ -1,4 +1,4 @@
-package edu.austral.dissis.common.validator.game
+package edu.austral.dissis.chess.validator.game
 
 import edu.austral.dissis.common.validator.ValidatorResultEnum
 import edu.austral.dissis.common.validator.Validator
