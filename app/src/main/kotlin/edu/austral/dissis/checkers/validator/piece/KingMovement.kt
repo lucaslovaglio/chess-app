@@ -2,6 +2,7 @@ package edu.austral.dissis.checkers.validator.piece
 
 import edu.austral.dissis.checkers.validator.game.AnyCaptureValidator
 import edu.austral.dissis.checkers.validator.game.CaptureValidator
+import edu.austral.dissis.checkers.validator.game.EmptySquareToValidator
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.validator.MovementRule
@@ -19,6 +20,7 @@ class KingMovement: Validator {
         listOf(
             DiagonalMovement(),
             FixedStepMovement(1),
+            EmptySquareToValidator()
             )
     )
 

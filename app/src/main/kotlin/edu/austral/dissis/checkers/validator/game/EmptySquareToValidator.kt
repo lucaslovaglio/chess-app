@@ -6,7 +6,7 @@ import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum
 
-class NotEmptySquareToValidator: Validator {
+class EmptySquareToValidator: Validator {
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         return if (movementData.squareTo.piece != null)
                     ValidatorResult(ValidatorResultEnum.INVALID_SQUARE_TO)

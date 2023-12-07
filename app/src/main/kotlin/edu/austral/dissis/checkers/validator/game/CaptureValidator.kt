@@ -16,7 +16,7 @@ class CaptureValidator: Validator {
             DiagonalMovementIgnoreObstacles(),
             FixedStepMovement(2),
             PieceInMiddleValidator(),
-            NotEmptySquareToValidator()
+            EmptySquareToValidator()
         )
     )
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {

@@ -14,7 +14,7 @@ class AnyCaptureValidator: Validator {
         val board = game.board
         val ownPiecesSquares = board.getOccupiedSquaresByTeam(movementData.piece?.color!!)
         for (ownSquare in ownPiecesSquares) {
-            if (ownSquare.piece == movementData.piece) continue
+//            if (ownSquare.piece == movementData.piece) continue
             val possibleMoves = getPossibleMoves(ownSquare, game)
             for (move in possibleMoves) {
                 val result = captureValidator.validate(move, game)
