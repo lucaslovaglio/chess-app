@@ -24,9 +24,9 @@ class CaptureIfPossibleValidator: Validator {
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         val result = mustCapture.validate(movementData, game)
         return if (result.isPassed()) {
-            ValidatorResult(ValidatorResultEnum.PASSED, result.getSpecialActions())
+            ValidatorResult(ValidatorResultEnum.PASSED) // no traigo las special actions porque solo quiero validar, no quiero ejecutar ninguna accion
         } else {
-            ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
+            ValidatorResult(ValidatorResultEnum.MUST_CAPTURE)
         }
     }
 }
