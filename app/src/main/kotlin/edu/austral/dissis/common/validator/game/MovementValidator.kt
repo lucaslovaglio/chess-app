@@ -12,9 +12,6 @@ class MovementValidator: Validator {
         val rules = game.rulesMap
         val rule = rules.getRule(piece!!.name)
         return rule.validate(movementData, game)
-//        return if (rule.validate(movementData, game).isPassed())
-//                    ValidatorResult(ValidatorResultEnum.PASSED)
-//                else ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
 
 
     }

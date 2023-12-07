@@ -11,8 +11,13 @@ class LMovement : Validator {
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         val diffX: Int = abs(movementData.squareFrom.x - movementData.squareTo.x)
         val diffY: Int = abs(movementData.squareFrom.y - movementData.squareTo.y)
-        return if (diffX == 2 && diffY == 1 || diffX == 1 && diffY == 2)
+        return if (isValidKnightMove(diffX, diffY))
                     ValidatorResult(ValidatorResultEnum.PASSED)
                 else ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
     }
+
+    private fun isValidKnightMove(diffX: Int, diffY: Int): Boolean {
+        return diffX == 2 && diffY == 1 || diffX == 1 && diffY == 2
+    }
+
 }

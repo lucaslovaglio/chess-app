@@ -17,7 +17,6 @@ import kotlin.math.min
 class CastlingValidator : Validator {
     private val checkValidator = CheckValidator()
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
-        //TODO: Check if king is in check
         val board = game.board
         val from = movementData.squareFrom
         val to = movementData.squareTo

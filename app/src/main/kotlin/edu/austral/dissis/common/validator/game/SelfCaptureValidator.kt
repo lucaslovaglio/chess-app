@@ -9,9 +9,17 @@ import edu.austral.dissis.common.validator.ValidatorResultEnum
 
 class SelfCaptureValidator : Validator {
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
-        if (!movementData.squareTo.isEmpty() && movementData.squareTo.piece!!.color == movementData.piece?.color) {
+        if (isNotEmpty(movementData) && isYourOwnPiece(movementData)) {
             return ValidatorResult(ValidatorResultEnum.INVALID_CAPTURE)
         }
         return ValidatorResult(ValidatorResultEnum.PASSED)
+    }
+
+    private fun isYourOwnPiece(movementData: MovementData): Boolean {
+        return movementData.squareTo.piece!!.color == movementData.piece?.color
+    }
+
+    private fun isNotEmpty(movementData: MovementData): Boolean {
+        return !movementData.squareTo.isEmpty()
     }
 }

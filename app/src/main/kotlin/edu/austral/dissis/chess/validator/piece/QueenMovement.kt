@@ -30,12 +30,5 @@ class QueenMovement : Validator {
         } else {
             ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
         }
-
-//        val isValid =  diagonalMovement.validate(movementData, game).isPassed() ||
-//                straightMovement.validate(movementData, game).isPassed() ||
-//                horizontalMovement.validate(movementData, game).isPassed()
-//
-//        return if (isValid) ValidatorResult(ValidatorResultEnum.PASSED)
-//        else ValidatorResult(ValidatorResultEnum.INVALID_MOVEMENT)
     }
 }

@@ -73,3 +73,23 @@ object ClassicBoard: StartingBoard {
         }
     }
 }
+
+object Empty8x8Board : StartingBoard {
+    private val height: Int = 8
+    private val width: Int = 8
+    private val players: List<Player> = listOf(Player(ColorEnum.WHITE), Player(ColorEnum.BLACK))
+    override fun generateBoard(): Board {
+        val squares = mutableListOf<Square>()
+
+        for (col in 1..height) {
+            for (row in 1..width) {
+                squares.add(Square(null, row, col))
+            }
+        }
+        return Board(width, height, squares)
+    }
+
+    override fun getPlayers(): List<Player> {
+        return players
+    }
+}

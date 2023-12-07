@@ -9,13 +9,10 @@ class CastlingAction(private val movementData: MovementData, private val rook: P
         val from = movementData.squareFrom
         val to = movementData.squareTo
         val rookDirection = if (to.x > from.x) 1 else -1
-//        val rookColumn = if (to.x > from.x) board.width else 1
-//        val rookFrom = Square(null, rookColumn, from.y)
         val rookFrom = board.searchPiece(rook.id)!!
         val rookTo = board.getSquareAt( to.x - rookDirection, to.y)
-//        val rook = board.getPieceAt(rookFrom.x, rookFrom.y)
 
-        // Mover la torre a la posición correspondiente
+        // mueve la torre a la posicion correspondiente
         return board.move(MovementData(rook, rookFrom, rookTo))
     }
 }
