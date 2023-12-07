@@ -2,6 +2,7 @@ package edu.austral.dissis.checkers.factory
 
 import edu.austral.dissis.checkers.game.CheckersTurnManager
 import edu.austral.dissis.checkers.validator.game.AnyCaptureValidator
+import edu.austral.dissis.checkers.validator.game.CaptureIfPossibleValidator
 import edu.austral.dissis.checkers.validator.game.StaleMateValidator
 import edu.austral.dissis.common.factory.GameFactory
 import edu.austral.dissis.common.game.Game
@@ -35,7 +36,7 @@ object ClassicCheckers: GameFactory {
 
     private fun getSpecialRule(): Validator {
         return AndValidator(listOf(
-            AnyCaptureValidator(),
+            CaptureIfPossibleValidator(),
         ))
     }
 

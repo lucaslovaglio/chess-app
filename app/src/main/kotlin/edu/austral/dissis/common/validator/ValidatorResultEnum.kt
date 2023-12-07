@@ -13,4 +13,5 @@ enum class ValidatorResultEnum(val message: String) {
     NO_CAPTURE_ALL("There are still pieces to capture"),
     NO_STALEMATE("There are still possible moves"),
     NO_CAPTURES("There are no captures available"),
+    INVALID_SQUARE_TO("You can't move to an occupied square"),
 }

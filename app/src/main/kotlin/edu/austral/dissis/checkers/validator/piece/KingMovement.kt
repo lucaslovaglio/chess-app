@@ -29,27 +29,6 @@ class KingMovement: Validator {
             )
     )
 
-    //(AnyCapture∧Capture)∨(¬AnyCapture)
-
-    private val mustCapture = OrValidator(
-        listOf(
-            AndValidator(
-                listOf(
-                    AnyCaptureValidator(),
-                    CaptureValidator()
-                )
-            ),
-            NotValidator(AnyCaptureValidator())
-        )
-    )
-
-    private val andValidator = AndValidator(
-        listOf(
-            mustCapture,
-            orValidator
-        )
-    )
-
     override fun validate(movementData: MovementData, game: Game): ValidatorResult {
         val result = orValidator.validate(movementData, game)
         return if (result.isPassed()) {
