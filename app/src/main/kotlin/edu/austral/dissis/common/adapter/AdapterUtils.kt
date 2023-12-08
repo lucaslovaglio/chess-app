@@ -58,7 +58,7 @@ fun adaptMove(game: Game, move: Move): MovementData {
     val board = game.board
     val from = move.from
     val to = move.to
-    return MovementData(
+    return MovementData( //la pieza podria no estar aca y tener un metodo en el game
         board.getPieceAt(from.column, from.row),
         board.getSquareAt(from.column, from.row),
         board.getSquareAt(to.column, to.row)

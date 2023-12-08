@@ -7,6 +7,7 @@ import edu.austral.dissis.common.validator.movement.DiagonalMovement
 import edu.austral.dissis.common.validator.movement.FixedStepMovement
 import edu.austral.dissis.common.validator.movement.OnlyDirectionMovement
 import edu.austral.dissis.chess.validator.game.CaptureValidator
+import edu.austral.dissis.common.validator.game.EmptySquareToValidator
 import edu.austral.dissis.chess.validator.game.FirstMovementValidator
 import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.game.Game
@@ -27,6 +28,7 @@ class PawnMovement : Validator {
     private val promotionValidator = PromotionValidator(PieceEnum.PAWN, PieceEnum.QUEEN)
     private val notFirstMovementValidator = NotValidator(FirstMovementValidator())
     private val firstMovementValidator = FirstMovementValidator()
+    private val emptySquareValidator = EmptySquareToValidator()
 
     private val firstMovement = AndValidator(
         listOf(
@@ -37,7 +39,8 @@ class PawnMovement : Validator {
                     twoStepMovement
                 )
             ),
-            straightMovement
+            straightMovement,
+            emptySquareValidator
         )
     )
 
@@ -45,7 +48,8 @@ class PawnMovement : Validator {
         listOf(
             notFirstMovementValidator,
             oneStepMovement,
-            straightMovement
+            straightMovement,
+            emptySquareValidator
         )
     )
 

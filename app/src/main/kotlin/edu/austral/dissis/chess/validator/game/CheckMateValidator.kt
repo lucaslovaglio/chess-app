@@ -6,7 +6,6 @@ import edu.austral.dissis.common.movement.MovementData
 import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum
-import edu.austral.dissis.common.validator.game.MovementValidator
 
 class CheckMateValidator: Validator {
     private val checkValidator = CheckValidator()
@@ -21,6 +20,7 @@ class CheckMateValidator: Validator {
         var isPassed = true
         for (ownPieceSquare in ownPiecesSquares) {
             val possibleMoves = getPossibleMoves(ownPieceSquare, game)
+//            if (possibleMoves.isEmpty()) return ValidatorResult(ValidatorResultEnum.PASSED)
             for (move in possibleMoves) {
 //                val movementDataAux = MovementData(ownPieceSquare.piece, ownPieceSquare, square)
 //                if (!game.validate(movementDataAux).isPassed())

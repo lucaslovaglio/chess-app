@@ -8,6 +8,7 @@ import edu.austral.dissis.common.validator.Validator
 import edu.austral.dissis.common.validator.ValidatorResult
 import edu.austral.dissis.common.validator.ValidatorResultEnum
 import edu.austral.dissis.common.validator.composite.AndValidator
+import edu.austral.dissis.common.validator.game.EmptySquareToValidator
 import edu.austral.dissis.common.validator.movement.FixedStepMovement
 
 class CaptureValidator: Validator {

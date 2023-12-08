@@ -14,7 +14,7 @@ fun main() {
 }
 
 
-class GameUI2: Application() {
+class GameUI3: Application() {
     private val imageResolver = CachedImageResolver(DefaultImageResolver())
 
     companion object {

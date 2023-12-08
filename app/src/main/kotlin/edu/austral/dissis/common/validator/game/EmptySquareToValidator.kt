@@ -1,4 +1,4 @@
-package edu.austral.dissis.checkers.validator.game
+package edu.austral.dissis.common.validator.game
 
 import edu.austral.dissis.common.game.Game
 import edu.austral.dissis.common.movement.MovementData
